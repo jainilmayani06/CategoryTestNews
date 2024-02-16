@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">CategoryTestNews</string>
+    <string name="top_headlines">Top Headlines</string>
+    <string name="browse">Browse</string>
+    <string name="share">Share</string>
+    <string name="save">Read later</string>
+    <string name="listen">Listen</string>
+    <string name="internet_warming">Check your Internet Connection and Try Again!</string>
+    <string name="news_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+
+
+    <string name="main_activity">Main Activity</string>
+    <string name="headlines">Headlines</string>
+    <string name="favourites">Favourites</string>
+    <string name="search">Search</string>
+    <string name="newstoro">NewsToro</string>
+    <string name="news_app">News App</string>
+    <string name="keep_update_news_by_us">Keep Update News By US</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo">TODO</string>
+    <string name="no_internet">No Internet</string>
+    <string name="retry">Retry</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="please_check_your_connection">Please Check Your Connection</string>
+    <string name="search_news">Search news…</string>
+    <string name="source">SOURCE</string>
+    <string name="title">TITLE</string>
+    <string name="description">DESCRIPTION</string>
+    <string name="date_time">DATE TIME</string>
+</resources>
