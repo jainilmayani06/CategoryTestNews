@@ -11,10 +11,12 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nsv.categorytestnews.MainActivity
 import com.nsv.categorytestnews.NewsModel
+import com.nsv.categorytestnews.NewsViewModelProviderFactory
 import com.nsv.categorytestnews.R
 import com.nsv.categorytestnews.adapters.FragmentAdapter
+import com.nsv.categorytestnews.architecture.NewsDatabase
+import com.nsv.categorytestnews.architecture.NewsRepository
 import com.nsv.categorytestnews.architecture.NewsViewModel
-import com.nsv.categorytestnews.databinding.ActivityMainBinding
 import com.nsv.categorytestnews.databinding.FragmentCategoryBinding
 import com.nsv.categorytestnews.utils.Constants
 
@@ -35,6 +37,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     private lateinit var viewPager: ViewPager2
     private lateinit var fragmentAdapter: FragmentAdapter
     private lateinit var shimmerLayout: ShimmerFrameLayout
+    private lateinit var newsViewModel: NewsViewModel
     private var totalRequestCount = 0
 
 
@@ -42,6 +45,9 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCategoryBinding.bind(view)
+
+
+        newsViewModel = NewsViewModel()
 
         mainActivity = MainActivity()
         tabLayout = binding.tabLayout
@@ -56,6 +62,13 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         requestNews(Constants.SCIENCE, scienceNews)
         requestNews(Constants.SPORTS, sportsNews)
         requestNews(Constants.TECHNOLOGY, techNews)
+
+        newsViewModel = NewsViewModel()
+        //FragmentManager has not been attached to a host pending
+        // category newsViewModel pending
+      /*  val newsRepository = NewsRepository(NewsDatabase)
+        val viewModelProviderFactory = NewsViewModelProviderFactory(mainActivity.application,newsRepository)
+        newsViewModel = ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)*/
 
         fragmentAdapter = FragmentAdapter(mainActivity.supportFragmentManager, lifecycle)
         viewPager.adapter = fragmentAdapter
