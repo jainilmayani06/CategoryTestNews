@@ -71,6 +71,7 @@
                 android:id="@+id/browse_news"
                 android:icon="@drawable/ic_baseline_open_in_browser_24"
                 android:title="@string/browse"
+                
                 app:showAsAction="never" />
 
             <item

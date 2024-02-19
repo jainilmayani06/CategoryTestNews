@@ -11,11 +11,8 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nsv.categorytestnews.MainActivity
 import com.nsv.categorytestnews.NewsModel
-import com.nsv.categorytestnews.NewsViewModelProviderFactory
 import com.nsv.categorytestnews.R
 import com.nsv.categorytestnews.adapters.FragmentAdapter
-import com.nsv.categorytestnews.architecture.NewsDatabase
-import com.nsv.categorytestnews.architecture.NewsRepository
 import com.nsv.categorytestnews.architecture.NewsViewModel
 import com.nsv.categorytestnews.databinding.FragmentCategoryBinding
 import com.nsv.categorytestnews.utils.Constants
@@ -64,6 +61,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         requestNews(Constants.TECHNOLOGY, techNews)
 
         newsViewModel = NewsViewModel()
+        mainActivity = requireActivity() as MainActivity
         //FragmentManager has not been attached to a host pending
         // category newsViewModel pending
       /*  val newsRepository = NewsRepository(NewsDatabase)
