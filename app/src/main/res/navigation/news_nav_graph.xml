@@ -7,6 +7,17 @@
 
 
     <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.nsv.categorytestnews.fragmentClasses.ArticleFragment"
+        android:label="ArticleFragment" >
+
+        <argument
+            android:name="article"
+            app:argType="com.nsv.categorytestnews.models.Article"/>
+
+    </fragment>
+
+    <fragment
         android:id="@+id/categoryFragment"
         android:name="com.nsv.categorytestnews.fragmentClasses.CategoryFragment"
         android:label="headlinesFragment" >
@@ -16,16 +27,29 @@
         <action
             android:id="@+id/action_headlinesFragment_to_settingsFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.nsv.categorytestnews.fragmentClasses.FavouritesFragment"
-        android:label="FavouritesFragment" />
+        android:label="FavouritesFragment" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.nsv.categorytestnews.fragmentClasses.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/headlinesFragment"
         android:name="com.nsv.categorytestnews.fragmentClasses.HeadlinesFragment"
@@ -33,5 +57,9 @@
         <action
             android:id="@+id/action_headlinesFragment2_to_categoryFragment"
             app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_headlinesFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
     </fragment>
+
 </navigation>

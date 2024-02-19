@@ -1,6 +1,10 @@
 package com.nsv.categorytestnews.utils
 
 object Constants {
+    const val BASE_URL = "https://newsapi.org/"
+    const val API_KEY = "fcb16e35e0cb4eb287d939f2191d6ccd"
+    const val SEARCH_NEWS_TIME_DELAY = 500L
+    const val QUERY_PAGE_SIZE = 20
     const val HOME = "Home"
     const val GENERAL = "General"
     const val SCIENCE = "Science"
