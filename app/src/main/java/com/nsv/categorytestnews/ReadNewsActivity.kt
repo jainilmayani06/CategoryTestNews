@@ -129,6 +129,7 @@ class ReadNewsActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         when (item.itemId) {
 
             R.id.share_news -> {
+
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.putExtra(Intent.EXTRA_TEXT, "Hey, checkout this news : " + newsData[0].url)
                 intent.type = "text/plain"

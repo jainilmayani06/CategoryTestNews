@@ -62,11 +62,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
         newsViewModel = NewsViewModel()
         mainActivity = requireActivity() as MainActivity
-        //FragmentManager has not been attached to a host pending
-        // category newsViewModel pending
-      /*  val newsRepository = NewsRepository(NewsDatabase)
-        val viewModelProviderFactory = NewsViewModelProviderFactory(mainActivity.application,newsRepository)
-        newsViewModel = ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)*/
+
 
         fragmentAdapter = FragmentAdapter(mainActivity.supportFragmentManager, lifecycle)
         viewPager.adapter = fragmentAdapter

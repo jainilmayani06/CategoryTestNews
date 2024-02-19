@@ -1,5 +1,6 @@
 package com.nsv.categorytestnews.architecture
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -110,6 +111,7 @@ class NewsRepository(NewsDatabase: NewsDatabase.Companion) {
                 }
             }
 
+            @SuppressLint("SuspiciousIndentation")
             override fun onFailure(call: Call<NewsDataFromJson>, t: Throwable) {
 
                 apiRequestError = true
