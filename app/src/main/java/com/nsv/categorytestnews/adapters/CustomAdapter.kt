@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.nsv.categorytestnews.NewsModel
+import com.nsv.categorytestnews.models.NewsModel
 import com.nsv.categorytestnews.R
 
 import com.squareup.picasso.Picasso

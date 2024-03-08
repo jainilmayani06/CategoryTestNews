@@ -1,5 +1,6 @@
 package com.nsv.categorytestnews
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nsv.categorytestnews.adapters.CustomAdapter
 import com.nsv.categorytestnews.architecture.NewsViewModel
+import com.nsv.categorytestnews.models.NewsModel
 import com.nsv.categorytestnews.utils.Constants.NEWS_CONTENT
 import com.nsv.categorytestnews.utils.Constants.NEWS_DESCRIPTION
 import com.nsv.categorytestnews.utils.Constants.NEWS_IMAGE_URL
@@ -30,9 +32,12 @@ class SavedNewsActivity : AppCompatActivity() {
     private lateinit var viewModel: NewsViewModel
     private lateinit var newsData: MutableList<NewsModel>
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_saved_news)
+
+
 
         recyclerView = findViewById(R.id.recyclerView)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -43,6 +48,7 @@ class SavedNewsActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

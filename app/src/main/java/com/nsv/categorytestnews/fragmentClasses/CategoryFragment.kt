@@ -10,7 +10,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nsv.categorytestnews.MainActivity
-import com.nsv.categorytestnews.NewsModel
+import com.nsv.categorytestnews.models.NewsModel
 import com.nsv.categorytestnews.R
 import com.nsv.categorytestnews.adapters.FragmentAdapter
 import com.nsv.categorytestnews.architecture.NewsViewModel
@@ -21,7 +21,7 @@ import com.nsv.categorytestnews.utils.Constants
 class CategoryFragment : Fragment(R.layout.fragment_category) {
 
     private lateinit var mainActivity: MainActivity
-    lateinit var binding: FragmentCategoryBinding
+    private lateinit var binding: FragmentCategoryBinding
 
     private  val newsCategories = arrayOf(
         Constants.HOME, Constants.BUSINESS,

@@ -2,7 +2,7 @@ package com.nsv.categorytestnews.architecture
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.nsv.categorytestnews.NewsModel
+import com.nsv.categorytestnews.models.NewsModel
 
 
 @Dao

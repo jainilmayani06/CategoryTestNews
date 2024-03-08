@@ -6,11 +6,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nsv.categorytestnews.BuildConfig
-import com.nsv.categorytestnews.NewsModel
+import com.nsv.categorytestnews.models.NewsModel
 import com.nsv.categorytestnews.fragmentClasses.CategoryFragment.Companion.apiRequestError
 import com.nsv.categorytestnews.fragmentClasses.CategoryFragment.Companion.errorMessage
 import com.nsv.categorytestnews.retrofit.NewsApi
-import com.nsv.categorytestnews.retrofit.NewsDataFromJson
+import com.nsv.categorytestnews.models.NewsDataFromJson
 import com.nsv.categorytestnews.retrofit.RetrofitHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -21,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NewsRepository(NewsDatabase: NewsDatabase.Companion) {
+class NewsRepository {
 
     companion object {
 

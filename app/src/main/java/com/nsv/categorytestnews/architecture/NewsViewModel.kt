@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nsv.categorytestnews.NewsModel
+import com.nsv.categorytestnews.models.NewsModel
 
 
 class NewsViewModel : ViewModel() {
@@ -14,7 +14,7 @@ class NewsViewModel : ViewModel() {
     //get news from API
     fun getNews(category: String?): MutableLiveData<List<NewsModel>>? {
 
-        newsLiveData = category.let { NewsRepository(NewsDatabase).getNewsApiCall(it) }
+        newsLiveData = category.let { NewsRepository().getNewsApiCall(it) }
 
         return newsLiveData
     }

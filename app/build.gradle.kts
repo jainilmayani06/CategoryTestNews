@@ -18,7 +18,7 @@ android {
 
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", "\"fcb16e35e0cb4eb287d939f2191d6ccd\"")
+        buildConfigField("String", "API_KEY", "\"5a3e054de1834138a2fbc4a75ee69053\"")
         //5a3e054de1834138a2fbc4a75ee69053
         // my Api key:-    fcb16e35e0cb4eb287d939f2191d6ccd
 
@@ -46,6 +46,7 @@ android {
         viewBinding = true
         buildConfig = true
     }
+
 
 }
 
@@ -98,5 +99,9 @@ dependencies {
 
 
     //implementation("com.github.jama5262:CarouselView:1.2.2")
+
+
+
+
 
 }

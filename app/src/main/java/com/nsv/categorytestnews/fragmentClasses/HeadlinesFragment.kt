@@ -12,8 +12,6 @@ import androidx.cardview.widget.CardView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,10 +20,8 @@ import com.nsv.categorytestnews.NewsViewModel
 import com.nsv.categorytestnews.R
 import com.nsv.categorytestnews.adapters.NewsAdapter
 import com.nsv.categorytestnews.databinding.FragmentHeadlinesBinding
-import com.nsv.categorytestnews.repository.NewsRepository
 import com.nsv.categorytestnews.utils.Constants
 import com.nsv.categorytestnews.utils.Resource
-import com.nsv.testnews.db.ArticleDatabase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -34,11 +30,11 @@ import kotlinx.coroutines.launch
 class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
 
     lateinit var newsViewModel: NewsViewModel
-    lateinit var newsAdapter: NewsAdapter
-    lateinit var retryButton: Button
-    lateinit var errorText: TextView
-    lateinit var itemHeadlinesError: CardView
-    lateinit var binding: FragmentHeadlinesBinding
+    private lateinit var newsAdapter: NewsAdapter
+    private lateinit var retryButton: Button
+    private lateinit var errorText: TextView
+    private lateinit var itemHeadlinesError: CardView
+    private lateinit var binding: FragmentHeadlinesBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,7 +60,7 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
         }
 
         var job: Job? = null
-        binding.searchEdit.addTextChangedListener(){ editable ->
+        binding.searchEdit.addTextChangedListener { editable ->
             job?.cancel()
             job = MainScope().launch {
                 delay(Constants.SEARCH_NEWS_TIME_DELAY)
@@ -93,7 +89,7 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
                 is Resource.Error<*> -> {
                     hideProgressBar()
                     response.message?.let { message ->
-                        Toast.makeText(activity, "Sorry error: $message", Toast.LENGTH_LONG).show()
+                        Toast.makeText(activity, "Sorry Response error: $message", Toast.LENGTH_LONG).show()
                         showErrorMessage(message)
                     }
                 }
@@ -121,7 +117,7 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
                 is Resource.Error<*> -> {
                     hideProgressBar()
                     response.message?.let { message ->
-                        Toast.makeText(activity, "Sorry error: $message", Toast.LENGTH_LONG).show()
+                        Toast.makeText(activity, "Sorry Response error: $message", Toast.LENGTH_LONG).show()
                         showErrorMessage(message)
                     }
                 }
@@ -166,7 +162,7 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
         isError = true
     }
 
-    val scrollListener = object : RecyclerView.OnScrollListener() {
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)

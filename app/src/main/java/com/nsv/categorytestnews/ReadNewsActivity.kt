@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.nsv.categorytestnews.architecture.NewsViewModel
+import com.nsv.categorytestnews.models.NewsModel
 import com.nsv.categorytestnews.utils.Constants.NEWS_CONTENT
 import com.nsv.categorytestnews.utils.Constants.NEWS_DESCRIPTION
 import com.nsv.categorytestnews.utils.Constants.NEWS_IMAGE_URL

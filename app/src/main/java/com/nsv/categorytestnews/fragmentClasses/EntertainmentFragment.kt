@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.nsv.categorytestnews.MainActivity
-import com.nsv.categorytestnews.NewsModel
+import com.nsv.categorytestnews.models.NewsModel
 import com.nsv.categorytestnews.R
 import com.nsv.categorytestnews.ReadNewsActivity
 import com.nsv.categorytestnews.adapters.CustomAdapter

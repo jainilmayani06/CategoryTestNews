@@ -12,7 +12,7 @@ import com.nsv.categorytestnews.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
-    lateinit var binding: FragmentSettingsBinding
+    private lateinit var binding: FragmentSettingsBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 

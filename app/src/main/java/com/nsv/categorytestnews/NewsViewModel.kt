@@ -9,8 +9,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 
 import com.nsv.categorytestnews.models.Article
-import com.nsv.categorytestnews.models.NewsResponse
 import com.nsv.categorytestnews.repository.NewsRepository
+import com.nsv.categorytestnews.models.NewsDataFromJson
 import com.nsv.categorytestnews.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -18,13 +18,13 @@ import java.io.IOException
 
 class NewsViewModel(app: Application, val newsRepository: NewsRepository): AndroidViewModel(app) {
 
-    val headlines: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+    val headlines: MutableLiveData<Resource<NewsDataFromJson>> = MutableLiveData()
     var headlinesPage = 1
-    var headlinesResponse: NewsResponse? = null
+    var headlinesResponse: NewsDataFromJson? = null
 
-    val searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+    val searchNews: MutableLiveData<Resource<NewsDataFromJson>> = MutableLiveData()
     var searchNewsPage = 1
-    var searchNewsResponse: NewsResponse? = null
+    var searchNewsResponse: NewsDataFromJson? = null
     var newSearchQuery: String? = null
     var oldSearchQuery: String? = null
 
@@ -40,7 +40,7 @@ class NewsViewModel(app: Application, val newsRepository: NewsRepository): Andro
         searchNewsInternet(searchQuery)
     }
 
-    private fun handleHeadlinesResponse(response: Response<NewsResponse>): Resource<NewsResponse>{
+    private fun handleHeadlinesResponse(response: Response<NewsDataFromJson>): Resource<NewsDataFromJson>{
         if (response.isSuccessful){
             response.body()?.let { resultResponse ->
                 headlinesPage++
@@ -57,7 +57,7 @@ class NewsViewModel(app: Application, val newsRepository: NewsRepository): Andro
         return Resource.Error(response.message())
     }
 
-    private fun handleSearchNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
+    private fun handleSearchNewsResponse(response: Response<NewsDataFromJson>) : Resource<NewsDataFromJson> {
         if(response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 if(searchNewsResponse == null || newSearchQuery != oldSearchQuery) {

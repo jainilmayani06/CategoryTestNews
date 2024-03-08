@@ -1,4 +1,4 @@
-package com.nsv.categorytestnews
+package com.nsv.categorytestnews.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

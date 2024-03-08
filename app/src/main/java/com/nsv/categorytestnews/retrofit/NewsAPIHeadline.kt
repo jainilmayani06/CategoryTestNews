@@ -2,7 +2,7 @@ package com.nsv.categorytestnews.retrofit
 
 
 import com.nsv.categorytestnews.BuildConfig.API_KEY
-import com.nsv.categorytestnews.models.NewsResponse
+import com.nsv.categorytestnews.models.NewsDataFromJson
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -17,7 +17,7 @@ interface NewsAPIHeadline {
         pageNumber: Int = 1,
         @Query("apiKey")
         apiKey: String = API_KEY
-    ): Response<NewsResponse>
+    ): Response<NewsDataFromJson>
 
     @GET("v2/everything")
     suspend fun searchForNews(
@@ -27,5 +27,5 @@ interface NewsAPIHeadline {
         pageNumber: Int = 1,
         @Query("apiKey")
         apiKey: String = API_KEY
-    ): Response<NewsResponse>
+    ): Response<NewsDataFromJson>
 }
