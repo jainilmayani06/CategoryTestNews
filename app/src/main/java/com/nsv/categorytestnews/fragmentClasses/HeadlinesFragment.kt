@@ -49,7 +49,7 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
             requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view: View = inflater.inflate(R.layout.item_error, null)
 
-        retryButton = view.findViewById(R.id.retryButton)
+
         errorText = view.findViewById(R.id.errorText)
 
 

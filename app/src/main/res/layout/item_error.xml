@@ -18,23 +18,23 @@
         <TextView
             android:id="@+id/errorText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_margin="5dp"
             android:layout_weight="2"
             android:textColor="@color/black_for_bg"
             android:gravity="center_horizontal"
-            android:text="No Internet Or Not Response"
+            android:text="Not Response"
             android:textAlignment="center"
             android:textSize="16sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <!--<androidx.appcompat.widget.AppCompatButton
             android:id="@+id/retryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/blue"
             android:textColor="@color/white"
             android:layout_weight="1"
-            android:text="Retry" />
+            android:text="Retry" />-->
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

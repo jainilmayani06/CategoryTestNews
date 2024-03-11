@@ -24,9 +24,13 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     private lateinit var binding: FragmentCategoryBinding
 
     private  val newsCategories = arrayOf(
-        Constants.HOME, Constants.BUSINESS,
-        Constants.ENTERTAINMENT, Constants.SCIENCE,
-        Constants.SPORTS, Constants.TECHNOLOGY, Constants.HEALTH
+      //  Constants.HOME,
+        Constants.BUSINESS,
+        Constants.ENTERTAINMENT,
+        Constants.SCIENCE,
+        Constants.SPORTS,
+        Constants.TECHNOLOGY ,
+        Constants.HEALTH
     )
 
     private lateinit var viewModel: NewsViewModel
@@ -53,7 +57,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         shimmerLayout = binding.shimmerLayout
         viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
-        requestNews(Constants.GENERAL, generalNews)
+       // requestNews(Constants.GENERAL, generalNews)
         requestNews(Constants.BUSINESS, businessNews)
         requestNews(Constants.ENTERTAINMENT, entertainmentNews)
         requestNews(Constants.HEALTH, healthNews)
@@ -76,7 +80,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
             totalRequestCount += 1
 
             // If main fragment loaded then attach the fragment to viewPager
-            if (newsCategory == Constants.GENERAL) {
+            if (newsCategory == Constants.BUSINESS) {
                 shimmerLayout.stopShimmer()
                 shimmerLayout.hideShimmer()
                 shimmerLayout.visibility = View.GONE
@@ -84,12 +88,12 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
             }
 
             if (totalRequestCount == Constants.TOTAL_NEWS_TAB) {
-                viewPager.offscreenPageLimit = 7
+                viewPager.offscreenPageLimit = 6
             }
         }
     }
 
-    private fun setViewPager() {
+    /*private fun setViewPager() {
         if (!apiRequestError) {
             viewPager.visibility = View.VISIBLE
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -100,7 +104,21 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
             showError.text = errorMessage
             showError.visibility = View.VISIBLE
         }
+    }*/
+
+    private fun setViewPager() {
+        if (newsCategories.isNotEmpty()) {
+            viewPager.visibility = View.VISIBLE
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                if (position < newsCategories.size) {
+                    tab.text = newsCategories[position]
+                }
+            }.attach()
+        } else {
+            // Handle the case when newsCategories array is empty
+        }
     }
+
 
     companion object {
         var generalNews: ArrayList<NewsModel> = ArrayList()

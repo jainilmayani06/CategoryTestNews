@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <queries>
         <intent>
@@ -21,19 +21,22 @@
         android:supportsRtl="true"
         android:theme="@style/StatusBarTheme"
         tools:targetApi="31">
-
-
-
         <activity
+            android:name=".AboutActivity"
             android:parentActivityName=".MainActivity"
-            android:name=".ReadNewsActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReadNewsActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".SavedNewsActivity"
             android:label="Saved News"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">

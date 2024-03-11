@@ -20,7 +20,7 @@ object Constants {
     const val NEWS_PUBLICATION_TIME = "news publication time"
     const val NEWS_DESCRIPTION = "news description"
     const val NEWS_CONTENT = "news content"
-    const val TOTAL_NEWS_TAB = 7
+    const val TOTAL_NEWS_TAB = 6
     const val TOP_HEADLINES_COUNT = 5
 
     const val DATABASE_NAME = "LOGIN_DATABASE"

@@ -20,9 +20,11 @@
         android:title="Category"
         android:icon="@drawable/baseline_category_24"/>
 
+<!--
     <item
         android:id="@+id/settingFragment"
         android:title="Setting"
         android:icon="@drawable/baseline_settings_24"/>
+-->
 
 </menu>

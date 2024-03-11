@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var networkReceiver: BroadcastReceiver
-    private lateinit var  netWorkErrorDialog: Dialog
+    private lateinit var netWorkErrorDialog: Dialog
 
     private var isNetworkAvailable = false
 
@@ -56,7 +56,8 @@ class MainActivity : AppCompatActivity() {
         val viewModelProviderFactory = NewsViewModelProviderFactory(application, newsRepository)
         newsViewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.newsNavHostFragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.newsNavHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
     }
@@ -67,10 +68,53 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        intent = Intent(applicationContext, SavedNewsActivity::class.java)
-        startActivity(intent)
-        return super.onOptionsItemSelected(item)
+
+        when (item.itemId) {
+            R.id.savednews_menu -> {
+                val intent = Intent(applicationContext, SavedNewsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+
+            R.id.setting_news -> {
+                val intent = Intent(applicationContext, SettingActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.share_app -> {
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, "NewsToro")
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+            }
+            R.id.about_app ->{
+                val intent = Intent(applicationContext, AboutActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.exit_app -> {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Confirm Exit")
+                builder.setMessage("Are you sure you want to exit?")
+                builder.setPositiveButton("Yes") { dialogInterface: DialogInterface, i: Int ->
+                    finish()
+                }
+                builder.setNegativeButton("No") { dialogInterface: DialogInterface, i: Int ->
+                    dialogInterface.dismiss()
+                }
+                val dialog = builder.create()
+                dialog.show()
+            }
+
+            else -> return super.onOptionsItemSelected(item)
+
+        }
+        return  true
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()

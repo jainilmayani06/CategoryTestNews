@@ -13,4 +13,5 @@
 
     <color name="black_for_bg">#171717</color>
     <color name="shimmer_bg_color">#dddddd</color>
+    <color name="grey">#575A5A</color>
 </resources>

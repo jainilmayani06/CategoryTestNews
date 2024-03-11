@@ -21,29 +21,31 @@ class FragmentAdapter(fm: FragmentManager, lifecycle: Lifecycle) : FragmentState
     override fun createFragment(position: Int): Fragment {
 
         when (position) {
-            0 -> {
+            /*0 -> {
                 return GeneralFragment()
-            }
-            1 -> {
+            }*/
+            0 -> {
                 return BusinessFragment()
             }
-            2 -> {
+            1 -> {
                 return EntertainmentFragment()
             }
-            3 -> {
+            2 -> {
                 return ScienceFragment()
             }
-            4 -> {
+            3 -> {
                 return SportsFragment()
             }
-            5 -> {
+            4 -> {
                 return TechFragment()
             }
-            6 -> {
+            5 -> {
                 return HealthFragment()
             }
 
-            else -> return BusinessFragment()
+            else -> {
+                return EntertainmentFragment()
+            }
 
         }
     }
