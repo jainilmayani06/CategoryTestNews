@@ -1,6 +1,7 @@
 package com.nsv.categorytestnews
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.DialogInterface
@@ -8,7 +9,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -22,7 +26,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var networkReceiver: BroadcastReceiver
-    private lateinit var  netWorkErrorDialog: AlertDialog
+    private lateinit var  netWorkErrorDialog: Dialog
+
+    private var isNetworkAvailable = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -30,8 +36,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        registerNetworkReceiver()
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+
+        netWorkErrorDialog = Dialog(this)
+
+        isNetworkAvailable = isNetworkAvailable(this)
+
+
+
         setNavToHome()
+        registerNetworkReceiver()
 
     }
 
@@ -44,6 +60,18 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_item_mainactivity, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        intent = Intent(applicationContext, SavedNewsActivity::class.java)
+        startActivity(intent)
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         unregisterNetworkReceiver()
@@ -52,12 +80,13 @@ class MainActivity : AppCompatActivity() {
     private fun registerNetworkReceiver() {
         networkReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                if (!isNetworkAvailable(context)) {
-                    if (!netWorkErrorDialog.isShowing) {
-                        showNetworkErrorDialog()
-                    }
-                } else {
+                val networkWasAvailable = isNetworkAvailable
+                isNetworkAvailable = isNetworkAvailable(context)
+                if (!isNetworkAvailable && !netWorkErrorDialog.isShowing) {
+                    showNetworkErrorDialog()
+                } else if (isNetworkAvailable && netWorkErrorDialog.isShowing && !networkWasAvailable) {
                     dismissNetworkErrorDialog()
+                    setNavToHome()
                 }
             }
         }
@@ -65,12 +94,13 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(networkReceiver, filter)
     }
 
+
     private fun unregisterNetworkReceiver() {
         unregisterReceiver(networkReceiver)
     }
 
     private fun dismissNetworkErrorDialog() {
-        if (netWorkErrorDialog != null && netWorkErrorDialog.isShowing) {
+        if (::netWorkErrorDialog.isInitialized && netWorkErrorDialog.isShowing) {
             netWorkErrorDialog.dismiss()
         }
     }
@@ -79,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         val connectivityManager =
             context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo != null && networkInfo.isConnected
+        return (networkInfo != null) && networkInfo.isConnected
     }
 
     private fun showNetworkErrorDialog() {
@@ -88,11 +118,19 @@ class MainActivity : AppCompatActivity() {
         builder.setMessage("Network connection is not available. Please check your internet connection.")
             .setPositiveButton("OK") { dialog: DialogInterface, which: Int ->
                 dialog.dismiss()
-               setNavToHome()
+                // Recursively show the dialog until the network becomes available
+                if (!isNetworkAvailable(this)) {
+                    showNetworkErrorDialog()
+                } else {
+                    // Once the network becomes available, dismiss the dialog and proceed with navigation setup
+                    dismissNetworkErrorDialog()
+                    setNavToHome()
+                }
             }
         netWorkErrorDialog = builder.create()
         netWorkErrorDialog.setCancelable(false)
         netWorkErrorDialog.show()
     }
+
 
 }

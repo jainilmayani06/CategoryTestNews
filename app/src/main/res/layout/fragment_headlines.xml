@@ -39,8 +39,6 @@
 
 
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerHeadlines"
         android:layout_width="match_parent"

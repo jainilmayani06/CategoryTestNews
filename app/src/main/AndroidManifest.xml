@@ -25,6 +25,7 @@
 
 
         <activity
+            android:parentActivityName=".MainActivity"
             android:name=".ReadNewsActivity"
             android:exported="false" />
 

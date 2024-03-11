@@ -35,6 +35,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
             findNavController().navigate(R.id.action_favouritesFragment_to_articleFragment, bundle)
         }
 
+
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {

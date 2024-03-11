@@ -1,11 +1,15 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+
     repositories {
         google()
-        maven {
+       /* maven {
             url = uri("https://www.jitpack.io" )
-        }
+
+        }*/
+        mavenCentral()
+
 
     }
     dependencies {

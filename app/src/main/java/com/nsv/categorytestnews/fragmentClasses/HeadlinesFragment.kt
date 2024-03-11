@@ -36,6 +36,8 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
     private lateinit var itemHeadlinesError: CardView
     private lateinit var binding: FragmentHeadlinesBinding
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHeadlinesBinding.bind(view)
@@ -43,29 +45,33 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
 
         itemHeadlinesError = view.findViewById(R.id.itemHeadlinesError)
 
-        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater =
+            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view: View = inflater.inflate(R.layout.item_error, null)
 
         retryButton = view.findViewById(R.id.retryButton)
         errorText = view.findViewById(R.id.errorText)
 
+
         newsViewModel = (activity as MainActivity).newsViewModel
         setupHeadlinesRecycler()
 
-        newsAdapter.setOnItemClickListener {
-            val bundle = Bundle().apply {
-                putSerializable("article", it)
+
+            newsAdapter.setOnItemClickListener { article ->
+                val bundle = Bundle().apply {
+                    this.putSerializable("article", article)
+                }
+                findNavController().navigate(R.id.action_headlinesFragment_to_articleFragment, bundle)
             }
-            findNavController().navigate(R.id.action_headlinesFragment_to_articleFragment, bundle)
-        }
+
 
         var job: Job? = null
         binding.searchEdit.addTextChangedListener { editable ->
             job?.cancel()
             job = MainScope().launch {
                 delay(Constants.SEARCH_NEWS_TIME_DELAY)
-                editable?.let{
-                    if (editable.toString().isNotEmpty()){
+                editable?.let {
+                    if (editable.toString().isNotEmpty()) {
                         newsViewModel.searchNews(editable.toString())
                     }
                 }
@@ -73,26 +79,32 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
         }
 
         newsViewModel.searchNews.observe(viewLifecycleOwner, Observer { response ->
-            when(response){
+            when (response) {
                 is Resource.Success<*> -> {
                     hideProgressBar()
                     hideErrorMessage()
-                    response.data?.let {newsResponse ->
+                    response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / Constants.QUERY_PAGE_SIZE + 5
                         isLastPage = newsViewModel.searchNewsPage == totalPages
-                        if (isLastPage){
-                            binding.recyclerHeadlines.setPadding(0,0,0,0)
+                        if (isLastPage) {
+                            binding.recyclerHeadlines.setPadding(0, 0, 0, 0)
                         }
                     }
                 }
+
                 is Resource.Error<*> -> {
                     hideProgressBar()
                     response.message?.let { message ->
-                        Toast.makeText(activity, "Sorry Response error: $message", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            activity,
+                            "Sorry Response error: $message",
+                            Toast.LENGTH_LONG
+                        ).show()
                         showErrorMessage(message)
                     }
                 }
+
                 is Resource.Loading<*> -> {
                     showProgressBar()
                 }
@@ -100,41 +112,88 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
         })
 
 
+/*
         newsViewModel.headlines.observe(viewLifecycleOwner, Observer { response ->
-            when(response){
+            when (response) {
                 is Resource.Success<*> -> {
                     hideProgressBar()
                     hideErrorMessage()
-                    response.data?.let {newsResponse ->
+                    response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / Constants.QUERY_PAGE_SIZE + 2
                         isLastPage = newsViewModel.headlinesPage == totalPages
-                        if (isLastPage){
-                            binding.recyclerHeadlines.setPadding(0,0,0,0)
+                        if (isLastPage) {
+                            binding.recyclerHeadlines.setPadding(0, 0, 0, 0)
                         }
                     }
                 }
+
                 is Resource.Error<*> -> {
                     hideProgressBar()
                     response.message?.let { message ->
-                        Toast.makeText(activity, "Sorry Response error: $message", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            activity,
+                            "Sorry Response error: $message",
+                            Toast.LENGTH_LONG
+                        ).show()
                         showErrorMessage(message)
                     }
                 }
+
+                is Resource.Loading<*> -> {
+                    showProgressBar()
+                }
+            }
+        })
+*/
+
+        newsViewModel.headlines.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Resource.Success<*> -> {
+                    hideProgressBar()
+                    hideErrorMessage()
+                    response.data?.let { newsResponse ->
+                        val articles = newsResponse.articles.toList()
+                        newsAdapter.differ.submitList(articles)
+                        val totalPages = newsResponse.totalResults / Constants.QUERY_PAGE_SIZE + 2
+                        isLastPage = newsViewModel.headlinesPage == totalPages
+                        if (isLastPage) {
+                            binding.recyclerHeadlines.setPadding(0, 0, 0, 0)
+                        }
+                    }
+                }
+
+                is Resource.Error<*> -> {
+                    hideProgressBar()
+                    response.message?.let { message ->
+                        Toast.makeText(
+                            activity,
+                            "Sorry Response error: $message",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        showErrorMessage(message)
+                    }
+                }
+
                 is Resource.Loading<*> -> {
                     showProgressBar()
                 }
             }
         })
 
-        retryButton.setOnClickListener {
-            if (binding.searchEdit.text.toString().isNotEmpty()){
-                newsViewModel.searchNews(binding.searchEdit.text.toString())
-            } else{
+        /*retryButton.setOnClickListener {
+            if (isError) {
+                if (binding.searchEdit.text.toString().isNotEmpty()) {
+                    newsViewModel.searchNews(binding.searchEdit.text.toString())
+                } else {
+                    newsViewModel.getHeadlines("us")
+                }
+            } else {
                 hideErrorMessage()
             }
-        }
+        }*/
     }
+
 
     var isError = false
     var isLoading = false
@@ -162,6 +221,8 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
         isError = true
     }
 
+
+
     private val scrollListener = object : RecyclerView.OnScrollListener() {
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -180,7 +241,7 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
             val shouldPaginate =
                 isNoErrors && isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
             if (shouldPaginate) {
-                newsViewModel.getHeadlines("us")
+                newsViewModel.getHeadlines("in")
                 isScrolling = false
             }
         }
@@ -202,6 +263,7 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
             addOnScrollListener(this@HeadlinesFragment.scrollListener)
         }
     }
+
 
     private fun setupSearchRecycler() {
         newsAdapter = NewsAdapter()

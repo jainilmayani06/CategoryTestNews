@@ -1,11 +1,16 @@
 package com.nsv.categorytestnews.fragmentClasses
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
+import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.nsv.categorytestnews.MainActivity
@@ -19,6 +24,8 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     lateinit var binding: FragmentArticleBinding
 
+
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentArticleBinding.bind(view)
@@ -28,28 +35,34 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         newsViewModel = (activity as MainActivity).newsViewModel
         val article = args.article
 
+        if (article.url.isEmpty()) {
+            Toast.makeText(requireContext(), "URL is null or empty", Toast.LENGTH_SHORT).show()
+            findNavController().popBackStack()
+            return
+        }
+
+       binding.paginationProgressBar.visibility = View.VISIBLE
+
+
+
+
         binding.webView.apply {
-           webViewClient = WebViewClient()
-            webChromeClient = WebChromeClient()
-            article.url?.let {
-                loadUrl(it)
+            webViewClient = object : WebViewClient() {
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    // Hide progress bar once the page is loaded
+                    binding.paginationProgressBar.visibility = View.GONE
+                }
             }
+            webChromeClient = WebChromeClient()
+            loadUrl(article.url)
             settings.apply {
                 domStorageEnabled = true
                 loadsImagesAutomatically = true
                 mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
                 javaScriptEnabled = true
             }
-            /*settings.apply {
-                domStorageEnabled = true
-                loadsImagesAutomatically = true
-                mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-                javaScriptEnabled = true
-            }
-            webViewClient = WebViewClient()
-            webChromeClient = WebChromeClient()*/
         }
-
 
         binding.fab.setOnClickListener {
             newsViewModel.addToFavourites(article)

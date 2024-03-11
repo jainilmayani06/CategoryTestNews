@@ -2,16 +2,19 @@ package com.nsv.categorytestnews
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.Voice
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -35,6 +38,9 @@ class ReadNewsActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var newsData: ArrayList<NewsModel>
     private lateinit var tts: TextToSpeech
 
+    private lateinit var progressBar: ProgressBar
+
+
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +48,12 @@ class ReadNewsActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+        progressBar = findViewById(R.id.paginationProgressBar)
 
         newsWebView = findViewById(R.id.news_webview)
         viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
@@ -51,6 +63,7 @@ class ReadNewsActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val newsUrl = intent.getStringExtra(NEWS_URL)
         val newsContent =
             intent.getStringExtra(NEWS_CONTENT) + ". get paid version to hear full news. "
+
         newsData.add(
             NewsModel(
                 intent.getStringExtra(NEWS_TITLE)!!,
@@ -71,7 +84,17 @@ class ReadNewsActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
                 javaScriptEnabled = true
             }
-            webViewClient = WebViewClient()
+            webViewClient = object : WebViewClient() {
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    super.onPageStarted(view, url, favicon)
+                    progressBar.visibility = View.VISIBLE
+                }
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    progressBar.visibility = View.GONE
+                }
+            }
             webChromeClient = WebChromeClient()
         }
 
