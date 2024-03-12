@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/bg_bottom_sheet"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:progressTint="@color/blue"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:layout_marginTop="10dp"
+            android:rating="3.5"
+            android:layout_gravity="center"
+            style="@style/Widget.MaterialRatingBar.RatingBar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rating_your_experience"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:fontFamily="serif"
+            android:textColor="@color/black"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            app:lottie_rawRes="@raw/rate"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+
+    </LinearLayout>
+
+
+</FrameLayout>

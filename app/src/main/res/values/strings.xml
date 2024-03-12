@@ -29,7 +29,13 @@
     <string name="description">DESCRIPTION</string>
     <string name="date_time">DATE TIME</string>
     <string name="setting_fragment">Setting Fragment</string>
-    <string name="email">Email : jainil.mayani11@gmail.com</string>
     <string name="contactUsText">Contact Us :</string>
-    <string name="contact">MoNo : 7096292390</string>
+    <string name="jainil_mayani">Jainil Mayani</string>
+    <string name="developede_by">Developede By :</string>
+    <string name="version">Version :</string>
+    <string name="_1_0">1.0</string>
+    <string name="jainil_mayani11_gmail_com">jainil.mayani11@gmail.com</string>
+    <string name="_7096292390">7096292390</string>
+    <string name="mono">MoNo :</string>
+    <string name="rating_your_experience">Rating Your Experience :)</string>
 </resources>

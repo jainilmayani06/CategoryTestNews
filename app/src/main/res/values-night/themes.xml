@@ -1,8 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.CategoryTestNews" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
+    <!--<style name="Base.Theme.CategoryTestNews" parent="Theme.Material3.DayNight.NoActionBar">
+        &lt;!&ndash; Customize your dark theme here. &ndash;&gt;
         <item name="android:background">#000000</item>
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        &lt;!&ndash; <item name="colorPrimary">@color/my_dark_primary</item> &ndash;&gt;
+    </style>-->
+
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/grey_white</item>
+        <item name="colorAccent">@color/purple</item>
     </style>
 </resources>

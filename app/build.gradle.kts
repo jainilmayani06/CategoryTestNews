@@ -18,7 +18,7 @@ android {
 
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", "\"5a3e054de1834138a2fbc4a75ee69053\"")
+        buildConfigField("String", "API_KEY", "\"fcb16e35e0cb4eb287d939f2191d6ccd\"")
         //5a3e054de1834138a2fbc4a75ee69053
         // my Api key:-    fcb16e35e0cb4eb287d939f2191d6ccd
 
@@ -100,6 +100,8 @@ dependencies {
 
     //lottie
     implementation("com.airbnb.android:lottie:3.4.0")
+
+    implementation("me.zhanghai.android.materialratingbar:library:1.4.0")
 
 
 

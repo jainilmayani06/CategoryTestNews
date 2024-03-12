@@ -9,13 +9,18 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.RatingBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.nsv.categorytestnews.databinding.ActivityMainBinding
 import com.nsv.categorytestnews.repository.NewsRepository
 import com.nsv.testnews.db.ArticleDatabase
@@ -76,9 +81,22 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
 
-            R.id.setting_news -> {
-                val intent = Intent(applicationContext, SettingActivity::class.java)
-                startActivity(intent)
+            R.id.rating_app -> {
+
+
+                val bottomSheetView = LayoutInflater.from(this).inflate(R.layout.rate_bottom_sheet, null)
+                val ratingBar = bottomSheetView.findViewById<RatingBar>(R.id.ratingBar)
+
+                val bottomSheetDialog = BottomSheetDialog(this@MainActivity,R.style.BottomSheetDialogTheme)
+                bottomSheetDialog.setContentView(bottomSheetView)
+
+                ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
+                    Toast.makeText(this, "Thank you for rating us: $rating stars", Toast.LENGTH_SHORT).show()
+
+                }
+
+                bottomSheetDialog.show()
+
             }
             R.id.share_app -> {
                 val sendIntent: Intent = Intent().apply {
